@@ -6,7 +6,10 @@ app = Flask(__name__)
 
 # ❌ Hardcoded secret (what we want CodeQL to find)
 API_KEY = "DUMMY_SECRET_KEY_123456"
-
+API_KEY = "DUMMY_SECRET_KEY_123456"         # flagged by name & value
+db_password = "mypassword"                 # flagged by name (maybe low entropy)
+bearer = "A1b2C3d4E5f6G7h8"                # flagged by value (length+alnum)
+not_secret = "hello"    
 @app.route("/ping")
 def ping():
     # ❌ Command injection (not needed for secret detection, but good to test)
