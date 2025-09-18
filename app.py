@@ -6,7 +6,7 @@ app = Flask(__name__)
 
 # ❌ Hardcoded secret (what we want CodeQL to find)
 API_KEY = "DUMMY_SECRET_KEY_123456"
-
+API_KEY = "DUMMY_SECRET_KEY_123456"
 @app.route("/run")
 def run():
     # ❌ Command injection (already detected)
