@@ -2,13 +2,13 @@ import python
 
 /**
  * @name Hardcoded secret in Python
- * @description Flags hardcoded API keys, tokens, or passwords.
+ * @description Detects hardcoded API keys, tokens, or passwords.
  * @kind problem
- * @problem.severity warning
- * @tags security
+ * @problem.severity error
+ * @tags security, external/cwe/cwe-798
  */
 
-from AssignStmt assign, Expr rhs, Name lhs
+from AssignStmt assign, Name lhs, Expr rhs
 where
   lhs.getId().regexpMatch("(?i)(api[_-]?key|secret|token|password)")
   and rhs instanceof StrConst
