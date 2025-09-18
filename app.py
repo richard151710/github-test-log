@@ -1,5 +1,5 @@
-# app.py - vulnerable sample for CodeQL testing
-from flask import Flask, request
+from flask import Flask
+import os
 import subprocess
 
 app = Flask(__name__)
@@ -7,11 +7,12 @@ app = Flask(__name__)
 # ❌ Hardcoded secret (what we want CodeQL to find)
 API_KEY = "DUMMY_SECRET_KEY_123456"
 
-@app.route("/ping")
-def ping():
-    # ❌ Command injection (not needed for secret detection, but good to test)
-    ip = request.args.get("ip", "127.0.0.1")
-    return subprocess.getoutput(f"ping -c 1 {ip}")
+@app.route("/run")
+def run():
+    # ❌ Command injection (already detected)
+    cmd = os.getenv("USER_INPUT")
+    return subprocess.getoutput(cmd)
 
 if __name__ == "__main__":
+    # ❌ Flask debug mode (already detected)
     app.run(debug=True)
