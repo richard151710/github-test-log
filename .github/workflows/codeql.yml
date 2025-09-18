@@ -30,9 +30,11 @@ jobs:
         with:
           languages: ${{ matrix.language }}
           build-mode: none
-          queries: ./.github/codeql/queries   # include your custom queries
+          queries: ./.github/codeql/queries   # ✅ custom queries folder
+
+      # Python doesn’t support autobuild, so skip that step
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
         with:
-          category: "/language:python"
+          category: "/language:${{ matrix.language }}"
