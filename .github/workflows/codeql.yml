@@ -28,9 +28,8 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-          languages: ${{ matrix.language }}
-          build-mode: none
-          queries: ./.github/codeql/queries   # ✅ custom queries folder
+              languages: ${{ matrix.language }}
+              queries: ./.github/codeql/queries
 
       # Python doesn’t support autobuild, so skip that step
 
