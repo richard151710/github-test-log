@@ -1,15 +1,18 @@
-import python
-
 /**
- * @name Hardcoded secret in Python
- * @description Detects hardcoded API keys, tokens, or passwords.
+ * @name Hardcoded secrets in Python (Enhanced)
+ * @description Finds variables with secret-like names assigned to string literals
  * @kind problem
  * @problem.severity error
- * @tags security, external/cwe/cwe-798
+ * @security-severity 7.5
+ * @tags security
+ * @id py/hardcoded-credentials-enhanced
  */
 
-from AssignStmt assign, Name lhs, Expr rhs
+import python
+
+from Assign assign, Name target
 where
-  lhs.getId().regexpMatch("(?i)(api[_-]?key|secret|token|password)")
-  and rhs instanceof StrConst
-select assign, "Hardcoded secret found: " + lhs.getId()
+  assign.getATarget() = target and
+  target.getId().regexpMatch("(?i).*(api.?key|secret|token|password).*") and
+  assign.getValue() instanceof StrConst
+select assign, "Potential hardcoded secret in variable: " + target.getId()
