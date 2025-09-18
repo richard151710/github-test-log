@@ -28,10 +28,10 @@ jobs:
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
         with:
-              languages: ${{ matrix.language }}
-              queries: ./.github/codeql/queries
+          languages: ${{ matrix.language }}
+          queries: ./.github/codeql/queries   # load custom queries
 
-      # Python doesn’t support autobuild, so skip that step
+      # Python doesn’t support autobuild, so skip build/autobuild steps
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
